@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="p-5 mb-4 bg-body-tertiary bg-dark rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Flog (Flask-Blog)</h1>
+        <p class="col-md-8 fs-4">Flog is a python's flask blog that I created following <a
+                href="https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH">Corey Schafer's
+                Course</a>
+        </p>
+        <p>Features:</p>
+        <ul>
+            <li>Templates: Jinja2 & Flask's flash messages</li>
+            <li>Routing: Flask's router</li>
+            <li>Forms: WTForms</li>
+            <li>Authentication: Flask's itsdangerous package & password hashing with flask-bcrypt</li>
+            <li>Data persistency: Flask-SQLAlchemy and SQL</li>
+            <li>Mailing system: flask-mail package</li>
+            <li>Didn't use Blueprint since it's a small project</li>
+        </ul>
+    </div>
+</div>
+
+{% for post in posts.items %}
+<article class="media content-section d-flex justify-content-start align-items-center">
+    <img class="img-fluid rounded-circle article-img me-3"
+        src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{{url_for('user_posts', username=post.author.username)}}">{{ post.author.username
+                }}</a>
+            <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+        </div>
+        <h2><a class="article-title" href="{{ url_for('get_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+        <p class="article-content">{{ post.content }}</p>
+    </div>
+</article>
+<hr />
+{% endfor %}
+
+{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+{% if posts.page == page_num %}
+<a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+{% else %}
+<a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+{% endif %}
+{% else %}
+...
+{% endif %}
+{% endfor %}
+{% endblock content %}
