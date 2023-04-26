@@ -10,7 +10,7 @@ an awesome course as introduction to python's [Flask](https://flask.palletsproje
 
 - Templating with [Jinja](https://jinja.palletsprojects.com/en/3.1.x/).
 - Routing with flask router
-- used [WTForms].(https://wtforms.readthedocs.io/en/3.0.x/) for handling user input forms.
+- used [WTForms](https://wtforms.readthedocs.io/en/3.0.x/) for handling user input forms.
 - Authentication System.
 - Data persistency.
 - Mailing system.
